@@ -197,9 +197,9 @@ DS.controller('list', ['$', '_', 'config', function ($, _, config) {
 }]);
 ```
 
-##Initialization of components
+##Initialization of Controllers
 
-We're currently using a little service to instantiate controllers for each matching `data-component` on the page. This only happens once, and happens _before_ the page is completely loaded and _before_ jQuery's document.ready. The moment that our final.min.js file is finished loading, we're scanning the page for components. This gives us a huge advantage in speed, and prevents waiting for third-party dependencies.
+If you're using `DS.controller()` in a systemic way – e.g. for "components" or "modules" on a page – it is often convenient to write a "controller initialization" service. Such a service would loop once through the DOM and call `DS.get('name', el);` for each component/module it found. Depending on where you call it, this can give a huge advantage in speed and prevent waiting for third-party dependencies.
 
 ##Full Example
 
