@@ -199,7 +199,7 @@ DS.controller('list', ['$', '_', 'config', function ($, _, config) {
 
 ##Initialization of Controllers
 
-If you're using `DS.controller()` in a systemic way – e.g. for all "components" or "modules" on a page – it's convenient to write a "controller initialization" service. Such a service would loop once through the DOM and call `DS.get('name', el);` for each component/module it found. Depending on where you call it, this can give a huge advantage in speed and prevent waiting for third-party dependencies.
+If you're using `DS.controller()` in a systemic way – e.g. for all "components" or "modules" on a page – it's convenient to write a "controller initialization" service. Such a service would loop once through the DOM and call `DS.get('name', el);` for each component/module it found. This can give a huge advantage in speed and prevent waiting for third-party dependencies.
 
 Here's an example of manually kicking off a 'components' service when our _final.min.js_ file is finished loading:
 
