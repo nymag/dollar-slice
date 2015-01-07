@@ -225,16 +225,6 @@ var Module = (function () {
        * @param value
        * @returns {Module}
        */
-      constant: function (name, value) {
-        this.context[name] = value;  //TODO: clone?
-        return this;
-      },
-
-      /**
-       * @param name
-       * @param value
-       * @returns {Module}
-       */
       value: function (name, value) {
         this.context[name] = value;
         return this;

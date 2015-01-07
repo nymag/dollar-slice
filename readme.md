@@ -143,7 +143,7 @@ DS.service('name', function () {
 });
 ```
 
-Just like AngularJS, using an array as the second parameter defines that controller's dependencies, which can be services, values, or constants. This format is very useful because of JavaScript minification, which changes the names of variables in scopes to things like `a`, `b`, `c`, etc, but leaves the strings defining a controller's dependencies alone.
+Just like AngularJS, using an array as the second parameter defines that controller's dependencies, which can be services or values. This format is very useful because of JavaScript minification, which changes the names of variables in scopes to things like `a`, `b`, `c`, etc, but leaves the strings defining a controller's dependencies alone.
 
 ```js
 DS.service('myService', function () {
@@ -182,18 +182,18 @@ DS.get('myController', document.body);
 //  controller created!
 ```
 
-##Values and Constants
+##Values
 
-Values and constants are useful for storing config and providing safe references that can be mocked during testing.
+Values are useful for storing config and providing safe references that can be mocked during testing.
 
 ```js
 DS.value('$', jQuery);
 DS.value('_', lodash);
 DS.value('$document', document);
-DS.constant('config', {'hostname': 'nymag.com', 'env': 'prod'});
+DS.value('config', {'hostname': 'nymag.com', 'env': 'prod'});
 ```
 
-Values and constants can be injected as well. For example:
+Values can be injected as well. For example:
 
 ```js
 DS.controller('list', ['$', '_', 'config', function ($, _, config) {

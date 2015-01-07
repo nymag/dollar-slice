@@ -173,33 +173,10 @@ describe('', function () {
     ds.get(anotherFakeName, el);
   });
 
-  it('can get constants within controllers', function () {
-    var ds = new DS(),
-      thing = {};
-    ds.constant(fakeName, thing);
-    ds.controller(anotherFakeName, [fakeName, function (f) {
-      expect(f).to.equal(thing);
-      return function () {};
-    }]);
-
-    ds.get(anotherFakeName, el);
-  });
-
   it('can get values within services', function () {
     var ds = new DS(),
       thing = {};
     ds.value(fakeName, thing);
-    ds.service(anotherFakeName, [fakeName, function (f) {
-      expect(f).to.equal(thing);
-    }]);
-
-    ds.get(anotherFakeName);
-  });
-
-  it('can get constants within services', function () {
-    var ds = new DS(),
-      thing = {};
-    ds.constant(fakeName, thing);
     ds.service(anotherFakeName, [fakeName, function (f) {
       expect(f).to.equal(thing);
     }]);
