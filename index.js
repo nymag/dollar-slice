@@ -68,7 +68,7 @@ var Module = (function () {
      * @param dependencies
      * @constructor
      */
-    function FactoryService(definition, dependencies) {
+    function DSService(definition, dependencies) {
       //jshint -W058
       //the 'new' keyword resets the service's context
       var service = new (Function.prototype.bind.apply(definition, [null].concat(dependencies)));
@@ -86,7 +86,7 @@ var Module = (function () {
      * @param instanceArguments
      * @constructor
      */
-    function FactoryController(definition, dependencies, instanceArguments) {
+    function DSController(definition, dependencies, instanceArguments) {
       //jshint -W058
       var el = getFirstElementArgument(instanceArguments),
         constructor = definition.apply(null, dependencies),
@@ -205,7 +205,7 @@ var Module = (function () {
        * @returns {Module}
        */
       controller: function (name, definition) {
-        this.definitions[name] = define(this, FactoryController, name, definition);
+        this.definitions[name] = define(this, DSController, name, definition);
         return this;
       },
 
@@ -216,7 +216,7 @@ var Module = (function () {
        */
       service: function (name, definition) {
         //definition always becomes a function when defined
-        this.definitions[name] = define(this, FactoryService, name, definition);
+        this.definitions[name] = define(this, DSService, name, definition);
         return this;
       },
 
@@ -244,17 +244,17 @@ var Module = (function () {
   })();
 
 //at least always one default module
-var Factory = new Module();
+var DS = new Module();
 
 //internally defined components should start with $, ala Angular convention
-Factory.value('$window', this);
-Factory.value('$document', this.document);
+DS.value('$window', this);
+DS.value('$document', this.document);
 
 //reliable self reference
-Factory.value('$module', Factory);
+DS.value('$module', DS);
 
 //explicitly global
-this.Factory = Factory;
+this.DS = DS;
 
 if (typeof module !== undefined && module.exports) {
   module.exports = Module;

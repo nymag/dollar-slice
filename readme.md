@@ -5,6 +5,10 @@ _"Cheap and easy."_
 
 Client-side micro-framework with heavy inspiration from AngularJS and BackboneJS.
 
+```js
+DS.value('🍕', DS);
+```
+
 We use this micro-framework to increase the speed of JavaScript initialization.  It's styled with familiar syntax from Angular and Backbone to reduce onboarding and training.  The code is not very large and is well-documented, so its a highly recommended read.
 
 It divides our code into controllers and services.  Controllers control a portion of the page.  Services are reusable singletons that controllers can share.  Both are deliberately designed to create testable and maintainable code.
@@ -14,7 +18,7 @@ It divides our code into controllers and services.  Controllers control a portio
 The syntax of a controller is a simplified version of AngularJS for familiarity.  This is the basic outline of a controller:
 
 ```js
-Factory.controller('name', function () {
+DS.controller('name', function () {
   return function () {
     //constructor
   };
@@ -26,13 +30,13 @@ Controllers are very lightweight.  Instantiating a controller for a list is acce
 To instantiate a controller, use `get`:
 
 ```js
-var controller = Factory.get('name', el);
+var controller = DS.get('name', el);
 ```
 
 Controllers are always bound to an element on the page, so one of the arguments passed to `get` must be a plain DOM element.  Any number of arguments can be passed to `get`, and they will become the parameters of the controller's constructor.  For example:
 
 ```js
-Factory.controller('name', function () {
+DS.controller('name', function () {
   return function (message, el, answer) {
     //will print: hello there! <body element> 42
     console.log(message, el, answer);
@@ -40,13 +44,13 @@ Factory.controller('name', function () {
 });
 
 var el = document.querySelector('body');
-var controller = Factory.get('name', 'hello there!', el, 42);
+var controller = DS.get('name', 'hello there!', el, 42);
 ```
 
 It is often useful to save the controller's element, which makes it available to functions in the controller's prototype.  Conversely, it's also very useful to _not_ save the element, because DOM elements are very large and saving them in memory is expensive.  In any case, this is an example of saving an element that was passed as the first argument.
 
 ```js
-Factory.controller('name', function () {
+DS.controller('name', function () {
   var constructor = function (el) {
     this.el = el;
   };
@@ -64,7 +68,7 @@ Factory.controller('name', function () {
 Controllers have a highly performant shorthand for binding events.  Its syntax is the same as BackboneJS for familiarity.  It uses native DOM event binding for speed and binds each event's function to the controller so that the meaning of `this` is consistent.  All css selectors are valid, and events with no selector apply to the controller's root element.
 
 ```js
-Factory.controller('list', function () {
+DS.controller('list', function () {
   var constructor = function (el) {
     this.iam = 'a click example';
   };
@@ -90,7 +94,7 @@ Factory.controller('list', function () {
 Controllers can have variables and functions that are shared between each instance, saving memory and keeping code DRY. These shared variables and functions do not have access to `this`.
 
 ```js
-Factory.controller('name', function() {
+DS.controller('name', function() {
   var defaultMessage = ' was clicked!'; // shared variable
   
   function logMe(message) { // shared function
@@ -104,7 +108,7 @@ Factory.controller('name', function() {
 Shared variables and functions can be referenced from anywhere inside the controller.
 
 ```js
-Factory.controller('list', function() {
+DS.controller('list', function() {
   var defaultMessage = ' was clicked!'; // shared variable
 
   // ...
@@ -127,7 +131,7 @@ Factory.controller('list', function() {
 The syntax of a service is a simplied version of AngularJS:
 
 ```js
-Factory.service('name', function () {
+DS.service('name', function () {
   //singleton constructor
 
   var items = []; // shared variable
@@ -142,17 +146,17 @@ Factory.service('name', function () {
 Services are only created once, and only when they're a dependency of an instantiated controller.  If a controller that uses the service is never requested, then the service will never be created.
 
 ```js
-Factory.service('myService', function () {
+DS.service('myService', function () {
   console.log('service created');
 });
 
-Factory.controller('myController', ['myService', function (myService) {
+DS.controller('myController', ['myService', function (myService) {
   return function (el) {
     console.log('controller created for' + el.tagName);
   };
 }]);
 
-Factory.get('myController', document.body);
+DS.get('myController', document.body);
 
 //outputs:
 //  service created
@@ -162,17 +166,17 @@ Factory.get('myController', document.body);
 A service that isn't a dependency of any controllers will not be created.
 
 ```js
-Factory.service('lonelyService', function() {
+DS.service('lonelyService', function() {
   console.log('lonely service created!');
 });
 
-Factory.controller('myController', ['anotherService', function(anotherService) {
+DS.controller('myController', ['anotherService', function(anotherService) {
   return function(el) {
     console.log('controller created!');
   };
 }]);
 
-Factory.get('myController', document.body);
+DS.get('myController', document.body);
 
 //outputs:
 //  controller created!
@@ -183,11 +187,11 @@ Note the new syntax of the controller.  Just like AngularJS, using an array as t
 Other dependencies can be injected as well.  For example:
 
 ```js
-Factory.value('$', jQuery);
-Factory.value('_', lodash);
-Factory.value('config', {'hostname': 'vulture.com', 'env': 'prod'});
+DS.value('$', jQuery);
+DS.value('_', lodash);
+DS.value('config', {'hostname': 'vulture.com', 'env': 'prod'});
 
-Factory.controller('list', ['$', '_', 'config', function ($, _, config) {
+DS.controller('list', ['$', '_', 'config', function ($, _, config) {
   return function () {
     $(this.el).find('.items:first').fadeIn();
     console.log('list config:', _.pick(config, 'env'));
@@ -204,7 +208,7 @@ We're currently using a little service to instantiate controllers for each match
 Here's what a fully-featured controller looks like. Note the shared variables and functions, event handlers, and dependency injection.
 
 ```js
-Factory.controller('name', ['myService', function(myService) {
+DS.controller('name', ['myService', function(myService) {
   var defaultMessage = ' was clicked!'; // shared variable
   function logMe(message) { // shared function
     console.log(message);
