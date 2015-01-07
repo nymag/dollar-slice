@@ -11,12 +11,12 @@ Dollar Slice divides client-side code into controllers and services. Controllers
 
 Table of Contents |
 ------------------|
-[Basics](#Basics) |
-[Event Binding](#Event-Binding) |
-[Shared Variables and Functions](#Shared-Variables-and-Functions) |
-[Services](#Services) |
-[Values](#Values) |
-[Full Example](#Full-Example) |
+[Basics](#basics) |
+[Event Binding](#event-binding) |
+[Shared Variables and Functions](#shared-variables-and-functions) |
+[Services](#services) |
+[Values](#values) |
+[Full Example](#full-example) |
 
 ##Basics
 
