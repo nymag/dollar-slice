@@ -7,13 +7,13 @@ Client-side micro-framework with heavy inspiration from AngularJS and BackboneJS
 
 `DS.value('`🍕`', DS);`
 
-We use this micro-framework to increase the speed of JavaScript initialization.  It's styled with familiar syntax from Angular and Backbone to reduce onboarding and training.  The code is not very large and is well-documented, so its a highly recommended read.
+We use this micro-framework to increase the speed of JavaScript initialization. It's styled with familiar syntax from Angular and Backbone to reduce onboarding and training, but doesn't concern itself with templating, data-binding, routing, or other features that introduce bloat and complexity. The code is not very large and is well-documented, so its a highly recommended read.
 
-It divides our code into controllers and services.  Controllers control a portion of the page.  Services are reusable singletons that controllers can share.  Both are deliberately designed to create testable and maintainable code.
+It divides our code into controllers and services. Controllers control a portion of the page. Services are reusable singletons that controllers can share. Both are deliberately designed to create testable and maintainable code.
 
 ##Basics
 
-The syntax of a controller is a simplified version of AngularJS for familiarity.  This is the basic outline of a controller:
+The syntax of a controller is a simplified version of AngularJS for familiarity. This is the basic outline of a controller:
 
 ```js
 DS.controller('name', function () {
@@ -23,7 +23,7 @@ DS.controller('name', function () {
 });
 ```
 
-Controllers are very lightweight.  Instantiating a controller for a list is acceptable, but you could also create a controller for each item in the list and the performance will be comparable to creating that number of objects normally.
+Controllers are very lightweight. Instantiating a controller for a list is acceptable, but you could also create a controller for each item in the list and the performance will be comparable to creating that number of objects normally.
 
 To instantiate a controller, use `get`:
 
@@ -31,7 +31,7 @@ To instantiate a controller, use `get`:
 var controller = DS.get('name', el);
 ```
 
-Controllers are always bound to an element on the page, so one of the arguments passed to `get` must be a plain DOM element.  Any number of arguments can be passed to `get`, and they will become the parameters of the controller's constructor.  For example:
+Controllers are always bound to an element on the page, so one of the arguments passed to `get` must be a plain DOM element. Any number of arguments can be passed to `get`, and they will become the parameters of the controller's constructor. For example:
 
 ```js
 DS.controller('name', function () {
@@ -45,7 +45,7 @@ var el = document.querySelector('body');
 var controller = DS.get('name', 'hello there!', el, 42);
 ```
 
-It is often useful to save the controller's element, which makes it available to functions in the controller's prototype.  Conversely, it's also very useful to _not_ save the element, because DOM elements are very large and saving them in memory is expensive.  In any case, this is an example of saving an element that was passed as the first argument.
+It is often useful to save the controller's element, which makes it available to functions in the controller's prototype. Conversely, it's also very useful to _not_ save the element, because DOM elements are very large and saving them in memory is expensive. In any case, this is an example of saving an element that was passed as the first argument.
 
 ```js
 DS.controller('name', function () {
@@ -63,7 +63,7 @@ DS.controller('name', function () {
 });
 ```
 
-Controllers have a highly performant shorthand for binding events.  Its syntax is the same as BackboneJS for familiarity.  It uses native DOM event binding for speed and binds each event's function to the controller so that the meaning of `this` is consistent.  All css selectors are valid, and events with no selector apply to the controller's root element.
+Controllers have a highly performant shorthand for binding events. Its syntax is the same as BackboneJS for familiarity. It uses native DOM event binding for speed and binds each event's function to the controller so that the meaning of `this` is consistent. All css selectors are valid, and events with no selector apply to the controller's root element.
 
 ```js
 DS.controller('list', function () {
@@ -141,7 +141,7 @@ DS.service('name', function () {
 });
 ```
 
-Services are only created once, and only when they're a dependency of an instantiated controller.  If a controller that uses the service is never requested, then the service will never be created.
+Services are only created once, and only when they're a dependency of an instantiated controller. If a controller that uses the service is never requested, then the service will never be created.
 
 ```js
 DS.service('myService', function () {
@@ -180,9 +180,9 @@ DS.get('myController', document.body);
 //  controller created!
 ```
 
-Note the new syntax of the controller.  Just like AngularJS, using an array as the second parameter defines that controller's dependencies, which can be services, values, or constants.  This format is very useful because of JavaScript minification, which changes the names of variables in scopes to things like a, b, c, etc, but leaves the strings defining a controller's dependencies alone.
+Note the new syntax of the controller. Just like AngularJS, using an array as the second parameter defines that controller's dependencies, which can be services, values, or constants. This format is very useful because of JavaScript minification, which changes the names of variables in scopes to things like a, b, c, etc, but leaves the strings defining a controller's dependencies alone.
 
-Other dependencies can be injected as well.  For example:
+Other dependencies can be injected as well. For example:
 
 ```js
 DS.value('$', jQuery);
@@ -199,7 +199,7 @@ DS.controller('list', ['$', '_', 'config', function ($, _, config) {
 
 ##Initialization of components
 
-We're currently using a little service to instantiate controllers for each matching `data-component` on the page.  This only happens once, and happens _before_ the page is completely loaded and _before_ jQuery's document.ready.  The moment that our final.min.js file is finished loading, we're scanning the page for components.  This gives us a huge advantage in speed, and prevents waiting for third-party dependencies.
+We're currently using a little service to instantiate controllers for each matching `data-component` on the page. This only happens once, and happens _before_ the page is completely loaded and _before_ jQuery's document.ready. The moment that our final.min.js file is finished loading, we're scanning the page for components. This gives us a huge advantage in speed, and prevents waiting for third-party dependencies.
 
 ##Full Example
 
