@@ -5,9 +5,7 @@ _"Cheap and easy."_
 
 Client-side micro-framework with heavy inspiration from AngularJS and BackboneJS.
 
-```js
-DS.value('🍕', DS);
-```
+`DS.value('`🍕`', DS);`
 
 We use this micro-framework to increase the speed of JavaScript initialization.  It's styled with familiar syntax from Angular and Backbone to reduce onboarding and training.  The code is not very large and is well-documented, so its a highly recommended read.
 
