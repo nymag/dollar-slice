@@ -10,13 +10,13 @@ We use this micro-framework to increase the speed of JavaScript initialization. 
 Dollar Slice divides client-side code into controllers and services. Controllers control a portion of the page. Services are reusable singletons that controllers can share. Both are deliberately designed to create testable and maintainable code.
 
 Table of Contents |
------------------
+------------------|
 [Basics](#Basics) |
-[Event Binding](#Event Binding) |
-[Shared Variables and Functions](#Shared Variables and Functions) |
+[Event Binding](#Event-Binding) |
+[Shared Variables and Functions](#Shared-Variables-and-Functions) |
 [Services](#Services) |
 [Values](#Values) |
-[Full Example](#Full Example) |
+[Full Example](#Full-Example) |
 
 ##Basics
 
