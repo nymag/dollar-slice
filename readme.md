@@ -47,28 +47,28 @@ It is often useful to save the controller's element, which makes it available to
 
 ```js
 Factory.controller('name', function () {
-  var List = function (el) {
+  var constructor = function (el) {
     this.el = el;
   };
-  List.prototype = {
+  constructor.prototype = {
     count: function () {
       //'this' is always bound to this instance of the controller
       var el = this.el;
       return el.children.length;
     }
   };
-  return List;
+  return constructor;
 });
 ```
 
 Controllers have a highly performant shorthand for binding events.  Its syntax is the same as BackboneJS for familiarity.  It uses native DOM event binding for speed and binds each event's function to the controller so that the meaning of `this` is consistent.  All css selectors are valid, and events with no selector apply to the controller's root element.
 
 ```js
-Factory.controller('name', function () {
-  var List = function (el) {
+Factory.controller('list', function () {
+  var constructor = function (el) {
     this.iam = 'a click example';
   };
-  List.prototype = {
+  constructor.prototype = {
     events: {
       'scroll': 'onScroll',
       '.item click': 'onItemClick'
@@ -83,7 +83,7 @@ Factory.controller('name', function () {
       console.log('clicked', e.target, 'and I am', this.iam);
     }
   };
-  return List;
+  return constructor;
 });
 ```
 
@@ -92,6 +92,7 @@ Controllers can have variables and functions that are shared between each instan
 ```js
 Factory.controller('name', function() {
   var defaultMessage = ' was clicked!'; // shared variable
+  
   function logMe(message) { // shared function
     console.log(message);
   }
@@ -103,21 +104,21 @@ Factory.controller('name', function() {
 Shared variables and functions can be referenced from anywhere inside the controller.
 
 ```js
-Factory.controller('name', function() {
+Factory.controller('list', function() {
+  var defaultMessage = ' was clicked!'; // shared variable
+
   // ...
 
-  var List = function(el) {
-    logMe('controller created for ' + el.tagName);
-  }
-  List.prototype = {
+  var constructor = function() {}
+  constructor.prototype = {
     events: {
       'click': 'onClick'
     },
     onClick: function(e) {
-      logMe(e.target + defaultMessage);
+      console.log(e.target + defaultMessage);
     }
   };
-  return List;
+  return constructor;
 });
 ```
 
@@ -196,7 +197,7 @@ Factory.controller('list', ['$', '_', 'config', function ($, _, config) {
 
 ##Initialization of components
 
-We're currently using a little service to instantiate controllers for each matching `data-component` on the page.  This only happens once, and happens _before_ the page is completely loaded and _before_ jQuery's document.ready.  The moment that our final.min.js file is finished loading, we're scanning the page for components.  This gives us a huge advantage in speed, and prevents waiting for third-party dependencies.  This initialization is in the [services/data-components.js](services/data-components.js) file.  Feel free to read that tiny function and make suggestions.
+We're currently using a little service to instantiate controllers for each matching `data-component` on the page.  This only happens once, and happens _before_ the page is completely loaded and _before_ jQuery's document.ready.  The moment that our final.min.js file is finished loading, we're scanning the page for components.  This gives us a huge advantage in speed, and prevents waiting for third-party dependencies.
 
 ##Full Example
 
