@@ -1,0 +1,36 @@
+{
+  "name": "dollar-slice",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nymag/dollar-slice"
+  },
+  "keywords": [
+    "the-factory",
+    "nymedia",
+    "client-side",
+    "angularjs",
+    "backbonejs"
+  ],
+  "author": "New York Media",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nymag/dollar-slice/issues"
+  },
+  "homepage": "https://github.com/nymag/dollar-slice",
+  "devDependencies": {
+    "blanket": "^1.1.6",
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0",
+    "sinon": "^1.12.2"
+  }
+}
