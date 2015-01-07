@@ -1,7 +1,7 @@
 Dollar Slice
 ============
 
-🍕 _"Cheap and easy."_ 🍕
+🍕 _"Cheap and easy."_
 
 Client-side micro-framework with heavy inspiration from AngularJS and BackboneJS.
 
