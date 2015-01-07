@@ -201,6 +201,14 @@ DS.controller('list', ['$', '_', 'config', function ($, _, config) {
 
 If you're using `DS.controller()` in a systemic way – e.g. for "components" or "modules" on a page – it is often convenient to write a "controller initialization" service. Such a service would loop once through the DOM and call `DS.get('name', el);` for each component/module it found. Depending on where you call it, this can give a huge advantage in speed and prevent waiting for third-party dependencies.
 
+Here's an example of calling a 'components' service when our _final.min.js_ file is finished loading:
+
+```js
+setTimeout(function () {
+  DS.get('components');
+}, 0);
+```
+
 ##Full Example
 
 Here's what a fully-featured controller looks like. Note the shared variables and functions, event handlers, and dependency injection.
