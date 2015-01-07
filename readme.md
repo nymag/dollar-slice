@@ -1,15 +1,13 @@
-Dollar Slice
+Dollar Slice 🍕
 ============
 
 _"Cheap and easy."_
 
 Client-side micro-framework with heavy inspiration from AngularJS and BackboneJS.
 
-`DS.value('`🍕`', DS);`
+We use this micro-framework to increase the speed of JavaScript initialization. It's styled with familiar syntax from Angular and Backbone to reduce onboarding and training, but highly simplified.
 
-We use this micro-framework to increase the speed of JavaScript initialization. It's styled with familiar syntax from Angular and Backbone to reduce onboarding and training, but doesn't concern itself with templating, data-binding, routing, or other features that introduce bloat and complexity. The code is not very large and is well-documented, so its a highly recommended read.
-
-It divides our code into controllers and services. Controllers control a portion of the page. Services are reusable singletons that controllers can share. Both are deliberately designed to create testable and maintainable code.
+Dollar Slice divides client-side code into controllers and services. Controllers control a portion of the page. Services are reusable singletons that controllers can share. Both are deliberately designed to create testable and maintainable code.
 
 ##Basics
 
@@ -63,6 +61,8 @@ DS.controller('name', function () {
 });
 ```
 
+##Event Binding
+
 Controllers have a highly performant shorthand for binding events. Its syntax is the same as BackboneJS for familiarity. It uses native DOM event binding for speed and binds each event's function to the controller so that the meaning of `this` is consistent. All css selectors are valid, and events with no selector apply to the controller's root element.
 
 ```js
@@ -88,6 +88,8 @@ DS.controller('list', function () {
   return constructor;
 });
 ```
+
+##Shared Variables and Functions
 
 Controllers can have variables and functions that are shared between each instance, saving memory and keeping code DRY. These shared variables and functions do not have access to `this`.
 
@@ -124,7 +126,7 @@ DS.controller('list', function() {
 });
 ```
 
-##Dependency Injection
+##Services
 
 The syntax of a service is a simplied version of AngularJS:
 
@@ -141,7 +143,7 @@ DS.service('name', function () {
 });
 ```
 
-Services are only created once, and only when they're a dependency of an instantiated controller. If a controller that uses the service is never requested, then the service will never be created.
+Just like AngularJS, using an array as the second parameter defines that controller's dependencies, which can be services, values, or constants. This format is very useful because of JavaScript minification, which changes the names of variables in scopes to things like `a`, `b`, `c`, etc, but leaves the strings defining a controller's dependencies alone.
 
 ```js
 DS.service('myService', function () {
@@ -161,7 +163,7 @@ DS.get('myController', document.body);
 //  controller created for BODY
 ```
 
-A service that isn't a dependency of any controllers will not be created.
+Services are only created once, and only when they're a dependency of an instantiated controller. If a controller that uses the service is never requested, then the service will never be created.
 
 ```js
 DS.service('lonelyService', function() {
@@ -180,15 +182,20 @@ DS.get('myController', document.body);
 //  controller created!
 ```
 
-Note the new syntax of the controller. Just like AngularJS, using an array as the second parameter defines that controller's dependencies, which can be services, values, or constants. This format is very useful because of JavaScript minification, which changes the names of variables in scopes to things like a, b, c, etc, but leaves the strings defining a controller's dependencies alone.
+##Values and Constants
 
-Other dependencies can be injected as well. For example:
+Values and constants are useful for storing config and providing safe references that can be mocked during testing.
 
 ```js
 DS.value('$', jQuery);
 DS.value('_', lodash);
-DS.value('config', {'hostname': 'nymag.com', 'env': 'prod'});
+DS.value('$document', document);
+DS.constant('config', {'hostname': 'nymag.com', 'env': 'prod'});
+```
 
+Values and constants can be injected as well. For example:
+
+```js
 DS.controller('list', ['$', '_', 'config', function ($, _, config) {
   return function () {
     $(this.el).find('.items:first').fadeIn();
