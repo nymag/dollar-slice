@@ -197,37 +197,24 @@ DS.controller('list', ['$', '_', 'config', function ($, _, config) {
 }]);
 ```
 
-##Initialization of Controllers
-
-If you're using `DS.controller()` in a systemic way – e.g. for all "components" or "modules" on a page – it's convenient to write a "controller initialization" service. Such a service would loop once through the DOM and call `DS.get('name', el);` for each component/module it found. This can give a huge advantage in speed and prevent waiting for third-party dependencies.
-
-Here's an example of manually kicking off a 'components' service when our _final.min.js_ file is finished loading:
-
-```js
-setTimeout(function () {
-  DS.get('components');
-}, 0);
-```
-
 ##Full Example
 
 Here's what a fully-featured controller looks like. Note the shared variables and functions, event handlers, and dependency injection.
 
 ```js
-DS.controller('name', ['myService', function(myService) {
+DS.controller('item-controller', ['myService', function(myService) {
   var defaultMessage = ' was clicked!'; // shared variable
   function logMe(message) { // shared function
     console.log(message);
   }
 
-  // constructor
-  var ItemCtrl = function (el) {
+  var constructor = function (el) {
     this.button = el.querySelector('button');
     this.tagName = el.tagName;
     // note: you can also reference prototype methods here, e.g. this.onClick()
   };
 
-  ItemCtrl.prototype = {
+  constructor.prototype = {
     events: {
       'click': 'onClick', // fires when the el is clicked
       'button click': 'onButtonClick' // fires when the button inside the el is clicked
@@ -242,6 +229,6 @@ DS.controller('name', ['myService', function(myService) {
       myService.trigger('customevent'); // services can do api calls, handle custom events, and much more
     }
   };
-  return ItemCtrl; // remember to return the constructor!
+  return constructor; // remember to return the constructor!
 }]);
 ```
