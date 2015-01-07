@@ -18,7 +18,7 @@ The syntax of a controller is a simplified version of AngularJS for familiarity.
 ```js
 DS.controller('name', function () {
   return function () {
-    //constructor
+    // constructor
   };
 });
 ```
@@ -36,7 +36,7 @@ Controllers are always bound to an element on the page, so one of the arguments 
 ```js
 DS.controller('name', function () {
   return function (message, el, answer) {
-    //will print: hello there! <body element> 42
+    // will print: hello there! <body element> 42
     console.log(message, el, answer);
   };
 });
@@ -54,7 +54,7 @@ DS.controller('name', function () {
   };
   constructor.prototype = {
     count: function () {
-      //'this' is always bound to this instance of the controller
+      // 'this' is always bound to this instance of the controller
       var el = this.el;
       return el.children.length;
     }
@@ -77,11 +77,11 @@ DS.controller('list', function () {
     },
     onScroll: function (e) {
       var el = e.target;
-      //list slowly disappears as the user scrolls
+      // list slowly disappears as the user scrolls
       el.style.opacity = el.scrollTop / el.clientHeight;
     }
     onItemClick: function (e) {
-      //outputs: 'clicked <.item element> and I am a click example'
+      // outputs: 'clicked <.item element> and I am a click example'
       console.log('clicked', e.target, 'and I am', this.iam);
     }
   };
@@ -130,7 +130,7 @@ The syntax of a service is a simplied version of AngularJS:
 
 ```js
 DS.service('name', function () {
-  //singleton constructor
+  // singleton constructor
 
   var items = []; // shared variable
 
@@ -156,7 +156,7 @@ DS.controller('myController', ['myService', function (myService) {
 
 DS.get('myController', document.body);
 
-//outputs:
+// outputs:
 //  service created
 //  controller created for BODY
 ```
@@ -176,7 +176,7 @@ DS.controller('myController', ['anotherService', function(anotherService) {
 
 DS.get('myController', document.body);
 
-//outputs:
+// outputs:
 //  controller created!
 ```
 
@@ -187,7 +187,7 @@ Other dependencies can be injected as well. For example:
 ```js
 DS.value('$', jQuery);
 DS.value('_', lodash);
-DS.value('config', {'hostname': 'vulture.com', 'env': 'prod'});
+DS.value('config', {'hostname': 'nymag.com', 'env': 'prod'});
 
 DS.controller('list', ['$', '_', 'config', function ($, _, config) {
   return function () {
@@ -237,5 +237,3 @@ DS.controller('name', ['myService', function(myService) {
   return ItemCtrl; // remember to return the constructor!
 }]);
 ```
-
-
