@@ -28,7 +28,7 @@
     "backbonejs"
   ],
   "author": "New York Media",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/nymag/dollar-slice/issues"
   },
