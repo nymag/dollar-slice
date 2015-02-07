@@ -246,7 +246,7 @@ DS.value('$module', DS);
 //explicitly global
 this.DS = DS;
 
-if (typeof module !== undefined && module.exports) {
+if (module && typeof module !== undefined && module.exports) {
   module.exports = Module;
 }
 
