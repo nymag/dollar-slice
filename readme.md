@@ -9,6 +9,14 @@ We use this micro-framework to increase the speed of JavaScript initialization. 
 
 Dollar Slice divides client-side code into controllers and services. Controllers control a portion of the page. Services are reusable singletons that controllers can share. Both are deliberately designed to create testable and maintainable code.
 
+## Installation
+
+```
+npm install --save dollar-slice
+```
+
+You probably have some sort of build process, so just make sure it knows about `/index.js`.
+
 ##Table of Contents
 * [Basics](#basics)
 * [Event Binding](#event-binding)
