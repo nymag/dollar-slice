@@ -3,9 +3,9 @@ Dollar Slice
 
 🍕 _"Cheap and easy."_
 
-Client-side micro-framework with heavy inspiration from AngularJS and BackboneJS.
+Client-side micro-framework with heavy inspiration from Angular and Backbone.
 
-We use this micro-framework to increase the speed of JavaScript initialization. It's styled with familiar syntax from Angular and Backbone to reduce onboarding and training, but highly simplified.
+We use this micro-framework to increase the speed of JavaScript initialization. The familiar syntax and narrow scope reduce the need for onboarding and training. Dollar slice works best when you don't need the data-binding, routing, and complexity of a Single Page App, but you still want your client-side code to be more structured than a bag of jQuery plugins.
 
 Dollar Slice divides client-side code into controllers and services. Controllers control a portion of the page. Services are reusable singletons that controllers can share. Both are deliberately designed to create testable and maintainable code.
 

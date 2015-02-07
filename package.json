@@ -1,8 +1,8 @@
 {
   "name": "dollar-slice",
-  "version": "0.1.0",
-  "private": true,
-  "description": "",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Cheap and easy. Client-side micro-framework with heavy inspiration from Angular and Backbone.",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -21,11 +21,11 @@
     "url": "https://github.com/nymag/dollar-slice"
   },
   "keywords": [
-    "the-factory",
     "nymedia",
     "client-side",
     "angularjs",
-    "backbonejs"
+    "backbonejs",
+    "micro-framework"
   ],
   "author": "New York Media",
   "license": "MIT",
