@@ -245,8 +245,3 @@ DS.value('$module', DS);
 
 //explicitly global
 this.DS = DS;
-
-if (module && typeof module !== undefined && module.exports) {
-  module.exports = Module;
-}
-
