@@ -193,7 +193,7 @@ var Module = (function () {
         if (this.definitions[name] && typeof this.definitions[name] === 'function') {
           return instantiate.apply(this, [this.definitions[name]].concat(Array.prototype.slice.call(arguments, 1)));
         } else {
-          throw new Error(name + 'is not defined');
+          throw new Error(name + ' is not defined');
         }
       },
 
