@@ -1,6 +1,8 @@
 Dollar Slice
 ============
 
+[![Build Status](https://travis-ci.org/nymag/dollar-slice.svg)](https://travis-ci.org/nymag/dollar-slice)
+
 🍕 _"Cheap and easy."_
 
 Client-side micro-framework with heavy inspiration from Angular and Backbone.
