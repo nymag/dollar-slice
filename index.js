@@ -245,3 +245,8 @@ DS.value('$module', DS);
 
 //explicitly global
 this.DS = DS;
+
+// export it for node
+if (typeof exports !== 'undefined') {
+  module.exports = new Module();
+}
