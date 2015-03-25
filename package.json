@@ -8,12 +8,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha -R mocha-lcov-reporter -r blanket | ./node_modules/.bin/coveralls"
   },
   "config": {
     "blanket": {
-      "pattern": "index.js",
-      "data-cover-never": "node_modules"
+      "pattern": "",
+      "data-cover-never": ["node_modules", "test"]
     }
   },
   "repository": {
@@ -36,7 +36,9 @@
   "devDependencies": {
     "blanket": "^1.1.6",
     "chai": "^1.10.0",
-    "mocha": "^2.1.0",
+    "coveralls": "^2.11.2",
+    "mocha": "2.1.0",
+    "mocha-lcov-reporter": "0.0.2",
     "sinon": "^1.12.2"
   }
 }
