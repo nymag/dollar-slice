@@ -50,7 +50,7 @@ var Module = (function () {
     }
 
     /**
-     * Is obj an Element
+     * Is obj an Element via duck-typing
      * @param {{}} obj
      * @returns {boolean}
      */
