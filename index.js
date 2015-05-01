@@ -50,12 +50,12 @@ var Module = (function () {
     }
 
     /**
-     * Is obj an Element via duck-typing
+     * Is obj an Element
      * @param {{}} obj
      * @returns {boolean}
      */
     function isElement(obj) {
-      return typeof obj === 'object' && typeof obj.nodeName === 'string';
+      return (obj && obj.nodeType === 1) === true;
     }
 
 
