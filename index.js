@@ -55,7 +55,7 @@ var Module = (function () {
      * @returns {boolean}
      */
     function isElement(obj) {
-      return typeof obj === 'object' && typeof obj.nodeName === 'string';
+      return !!(obj && obj.nodeType === 1);
     }
 
 

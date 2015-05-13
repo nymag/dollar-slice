@@ -6,6 +6,7 @@ var DS = require('../.'),
 
 var MockElement = function () {
   this.nodeName = 'nodeNameString';
+  this.nodeType = 1;
 };
 MockElement.prototype = {
   addEventListener: function () {},
