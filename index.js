@@ -192,7 +192,11 @@ var Module = (function () {
 
         if (this.definitions[name] && typeof this.definitions[name] === 'function') {
           return instantiate.apply(this, [this.definitions[name]].concat(Array.prototype.slice.call(arguments, 1)));
+        } else if (typeof require !== 'undefined') {
+          return instantiate.apply(this, [define(this, DSController, name, require(name))].concat(Array.prototype.slice.call(arguments, 1)));
+          // note: this will throw an error if `name` doesn't exist anywhere
         } else {
+          // note: this can only be hit when not using browserify
           throw new Error(name + ' is not defined');
         }
       },
@@ -246,7 +250,7 @@ DS.value('$module', DS);
 //explicitly global
 this.DS = DS;
 
-// export it for node
+// export it for node and browserify
 if (typeof exports !== 'undefined') {
-  module.exports = new Module();
+  module.exports = DS;
 }
