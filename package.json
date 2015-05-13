@@ -1,6 +1,6 @@
 {
   "name": "dollar-slice",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": false,
   "description": "Cheap and easy. Client-side micro-framework with heavy inspiration from Angular and Backbone.",
   "main": "index.js",
@@ -13,7 +13,10 @@
   "config": {
     "blanket": {
       "pattern": "",
-      "data-cover-never": ["node_modules", "test"]
+      "data-cover-never": [
+        "node_modules",
+        "test"
+      ]
     }
   },
   "repository": {
