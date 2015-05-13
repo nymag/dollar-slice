@@ -196,7 +196,7 @@ var Module = (function () {
           return instantiate.apply(this, [define(this, DSController, name, require(name))].concat(Array.prototype.slice.call(arguments, 1)));
           // note: this will throw an error if `name` doesn't exist anywhere
         } else {
-          console.log('REQUIRE!')
+          // note: this can only be hit when not using browserify
           throw new Error(name + ' is not defined');
         }
       },
