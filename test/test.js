@@ -28,7 +28,7 @@ describe('', function () {
   });
 
   it('returns singleton', function () {
-    expect(typeof DS).to.equal('object');
+    expect(DS).to.deep.equal(require('../.'));
   });
 
   it('throws if name does not exist', function () {
@@ -147,6 +147,15 @@ describe('', function () {
     DS.service(fakeName, function () {});
 
     expect(DS.get(fakeName, el)).to.equal(DS.get(fakeName, el));
+  });
+
+  it('service can be injected with other services', function () {
+    DS.service(fakeName, [anotherFakeName, function () {}]);
+    DS.service(anotherFakeName, function () {});
+
+    expect(function () {
+      DS.get(fakeName);
+    }).to.not.throw(Error);
   });
 
   it('can get values within controllers', function () {

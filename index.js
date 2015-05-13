@@ -194,9 +194,10 @@ var Module = (function () {
           return instantiate.apply(this, [this.definitions[name]].concat(Array.prototype.slice.call(arguments, 1)));
         } else if (typeof require !== 'undefined') {
           return instantiate.apply(this, [define(this, DSController, name, require(name))].concat(Array.prototype.slice.call(arguments, 1)));
-        } else {
-          throw new Error(name + ' is not defined');
         }
+
+        // this throws if nothing above matches
+        throw new Error(name + ' is not defined');
       },
 
       /**
