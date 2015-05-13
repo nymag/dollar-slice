@@ -79,6 +79,12 @@ describe('', function () {
     }).to.not.throw(Error);
   });
 
+  it('requires controller if not defined', function () {
+    expect(function () {
+      DS.get(__dirname + '/testctrl', el);
+    }).to.not.throw(Error);
+  });
+
   it('controller creates service lazily', function () {
     //this would fail if the service is created too early
     DS.controller(fakeName, [anotherFakeName, function () { return function () {}; }]);

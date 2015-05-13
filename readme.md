@@ -295,9 +295,7 @@ module.exports = function () {
 ```js
 var DS = require('dollar-slice');
 
-// define the controller
-DS.controller('item-controller', require('./item-controller'));
-
 // instantiate your controller with an element
-DS.get('item-controller', document.querySelector('.item'));
+// it will require and define it automatically if you give it a valid path
+DS.get(__dirname + '/item-controller', document.querySelector('.item'));
 ```
