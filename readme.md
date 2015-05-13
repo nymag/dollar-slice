@@ -261,17 +261,30 @@ DS.controller('item-controller', ['myService', function (myService) {
 
 ##Browserify
 
-When using Browserify, you can pare down Dollar Slice even more. Dependency injection, services, and values aren't needed, leaving only controllers. Here's what that looks like:
+When using Browserify, you can pare down Dollar Slice even more. Services and Controllers become simple modules, and dependency injection (and `DS.value()`) is completely unnecessary. Here's what that looks like:
+
+###my-service.js
+
+```js
+// require() creates singletons, so services can still share state between controllers
+var items = [];
+
+// public method
+exports.getItem = function (index) { // use `module.exports` instead of `this`
+  return items[index];
+};
+```
 
 ###item-controller.js
 
 ```js
 module.exports = function () {
-  var myService = require('./my-service'); // pull in any modules you need
+  var myService = require('./my-service'), // pull in any modules you need
+    _ = require('lodash'); // even use 3rd party modules (that work with browserify)
 
   var constructor = function (el) {
-    var button = el.querySelector('button');
-    myService.trigger('customevent', button); // use the modules you pulled in
+    var buttonClasses = el.querySelector('button').classList;
+    myService.getItem(_.first(buttonClasses)); // use the modules you pulled in
   };
   return constructor;
 };
