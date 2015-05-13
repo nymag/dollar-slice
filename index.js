@@ -246,7 +246,7 @@ DS.value('$module', DS);
 //explicitly global
 this.DS = DS;
 
-// export it for node
+// export it for node and browserify
 if (typeof exports !== 'undefined') {
-  module.exports = new Module();
+  module.exports = DS;
 }

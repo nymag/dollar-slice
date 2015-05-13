@@ -26,6 +26,7 @@ You probably have some sort of build process, so just make sure it knows about `
 * [Services](#services)
 * [Values](#values)
 * [Full Example](#full-example)
+* [Browserify](#browserify)
 
 ##Basics
 
@@ -112,7 +113,7 @@ DS.controller('list', function () {
 Controllers can have variables and functions that are shared between each instance, saving memory and keeping code DRY. These shared variables and functions do not have access to `this`.
 
 ```js
-DS.controller('name', function() {
+DS.controller('name', function () {
   var defaultMessage = ' was clicked!'; // shared variable
   
   function logMe(message) { // shared function
@@ -126,17 +127,17 @@ DS.controller('name', function() {
 Shared variables and functions can be referenced from anywhere inside the controller.
 
 ```js
-DS.controller('list', function() {
+DS.controller('list', function () {
   var defaultMessage = ' was clicked!'; // shared variable
 
   // ...
 
-  var constructor = function() {}
+  var constructor = function () {}
   constructor.prototype = {
     events: {
       'click': 'onClick'
     },
-    onClick: function(e) {
+    onClick: function (e) {
       console.log(e.target + defaultMessage);
     }
   };
@@ -155,7 +156,7 @@ DS.service('name', function () {
   var items = []; // shared variable
 
   // public method
-  this.getItem = function(index) {
+  this.getItem = function (index) {
     return items[index];
   };
 });
@@ -184,12 +185,12 @@ DS.get('myController', document.body);
 Services are only created once, and only when they're a dependency of an instantiated controller. If a controller that uses the service is never requested, then the service will never be created.
 
 ```js
-DS.service('lonelyService', function() {
+DS.service('lonelyService', function () {
   console.log('lonely service created!');
 });
 
-DS.controller('myController', ['anotherService', function(anotherService) {
-  return function(el) {
+DS.controller('myController', ['anotherService', function (anotherService) {
+  return function (el) {
     console.log('controller created!');
   };
 }]);
@@ -227,7 +228,7 @@ DS.controller('list', ['$', '_', 'config', function ($, _, config) {
 Here's what a fully-featured controller looks like. Note the shared variables and functions, event handlers, and dependency injection.
 
 ```js
-DS.controller('item-controller', ['myService', function(myService) {
+DS.controller('item-controller', ['myService', function (myService) {
   var defaultMessage = ' was clicked!'; // shared variable
   function logMe(message) { // shared function
     console.log(message);
@@ -244,10 +245,10 @@ DS.controller('item-controller', ['myService', function(myService) {
       'click': 'onClick', // fires when the el is clicked
       'button click': 'onButtonClick' // fires when the button inside the el is clicked
     },
-    onClick: function() {
+    onClick: function () {
       logMe(this.tagName + defaultMessage);
     },
-    onButtonClick: function(e) {
+    onButtonClick: function (e) {
       var buttonName = this.button.tagName;
       e.stopPropagation(); // this will stop `onClick` from being called
       logMe(buttonName + ' was clicked, but the click event won\'t propagate!');
@@ -256,4 +257,34 @@ DS.controller('item-controller', ['myService', function(myService) {
   };
   return constructor; // remember to return the constructor!
 }]);
+```
+
+##Browserify
+
+When using Browserify, you can pare down Dollar Slice even more. Dependency injection, services, and values aren't needed, leaving only controllers. Here's what that looks like:
+
+###item-controller.js
+
+```js
+module.exports = function () {
+  var myService = require('./my-service'); // pull in any modules you need
+
+  var constructor = function (el) {
+    var button = el.querySelector('button');
+    myService.trigger('customevent', button); // use the modules you pulled in
+  };
+  return constructor;
+};
+```
+
+###Instantiation
+
+```js
+var DS = require('dollar-slice');
+
+// define the controller
+DS.controller('item-controller', require('./item-controller'));
+
+// instantiate your controller with an element
+DS.get('item-controller', document.querySelector('.item'));
 ```
