@@ -193,11 +193,11 @@ var Module = (function () {
         if (this.definitions[name] && typeof this.definitions[name] === 'function') {
           return instantiate.apply(this, [this.definitions[name]].concat(Array.prototype.slice.call(arguments, 1)));
         } else if (typeof require !== 'undefined') {
-          try {
-            return instantiate.apply(this, [define(this, DSController, name, require(name))].concat(Array.prototype.slice.call(arguments, 1)));
-          } catch (e) {
-            throw new Error(name + ' is not defined');
-          }
+          return instantiate.apply(this, [define(this, DSController, name, require(name))].concat(Array.prototype.slice.call(arguments, 1)));
+          // note: this will throw an error if `name` doesn't exist anywhere
+        } else {
+          console.log('REQUIRE!')
+          throw new Error(name + ' is not defined');
         }
       },
 
