@@ -293,6 +293,8 @@ module.exports = function () {
 
 ###Instantiation
 
+NOTE: You should pass `__dirname` (or an absolute path) in, otherwise Dollar Slice will use a relative path to `require()` your controller. A relative path that begins in Dollar Slice's own directory. `require()` is awesome.
+
 ```js
 var DS = require('dollar-slice');
 
