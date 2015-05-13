@@ -2,6 +2,7 @@ Dollar Slice
 ============
 
 [![Build Status](https://travis-ci.org/nymag/dollar-slice.svg)](https://travis-ci.org/nymag/dollar-slice)
+[![Coverage Status](https://coveralls.io/repos/nymag/dollar-slice/badge.svg?branch=master)](https://coveralls.io/r/nymag/dollar-slice?branch=master)
 
 🍕 _"Cheap and easy."_
 
