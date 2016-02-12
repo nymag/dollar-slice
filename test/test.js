@@ -2,7 +2,9 @@
 
 var DS = require('../.'),
   expect = require('chai').expect,
-  sinon = require('sinon');
+  sinon = require('sinon'),
+  fs = require('fs'),
+  vm = require('vm');
 
 var MockElement = function () {
   this.nodeName = 'nodeNameString';
@@ -17,6 +19,7 @@ describe('', function () {
   var sandbox,
     fakeName = 'jkfldsa',
     anotherFakeName = 'kalsdew',
+    yetAnotherFakeName = 'sdkljgre',
     el = new MockElement(),
     anotherEl = new MockElement();
 
@@ -35,7 +38,7 @@ describe('', function () {
   it('throws if name does not exist', function () {
     expect(function () {
       DS.get(fakeName);
-    }).to.throw(Error);
+    }).to.throw('Cannot find module');
   });
 
   it('throws if definition does not start with name as a string', function () {
@@ -94,6 +97,15 @@ describe('', function () {
     expect(function () {
       DS.get(fakeName, el);
     }).to.not.throw(Error);
+  });
+
+  it('controller creates service already created', function () {
+    //this would fail if the service wasn't shared
+    DS.controller(fakeName, [anotherFakeName, function (ref) { return function () { this.service = ref; }; }]);
+    DS.service(anotherFakeName, function () {});
+    DS.controller(yetAnotherFakeName, [anotherFakeName, function (ref) { return function () { this.service = ref; }; }]);
+
+    expect(DS.get(fakeName, el).service === DS.get(yetAnotherFakeName, el).service).to.equal(true);
   });
 
   it('controller binds events to first element in list of arguments only', function () {
@@ -178,5 +190,16 @@ describe('', function () {
     }]);
 
     DS.get(anotherFakeName);
+  });
+
+  it('when require is missing', function () {
+    var scriptText = fs.readFileSync('index.js', {encoding: 'UTF8'}) + '; DS.get("hi")',
+      sandbox = {},
+      context = new vm.createContext(sandbox),
+      script = new vm.Script(scriptText);
+
+    expect(function () {
+      script.runInContext(context);
+    }).to.throw('hi is not defined');
   });
 });
