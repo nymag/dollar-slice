@@ -239,16 +239,22 @@ var Module = (function () {
 
 //at least always one default module
 var DS = new Module();
+var attach = this;
 
-//internally defined components should start with $, ala Angular convention
-DS.value('$window', this);
-DS.value('$document', this.document);
+if (this === undefined) {
+  // support for es2015 module strictness (this will be undefined, so explicitly add it to window)
+  attach = window;
+} // older browsers, commonjs modules, etc will simply use `this`
+
+// internally defined components should start with $, ala Angular convention
+DS.value('$window', attach);
+DS.value('$document', attach.document);
+
+//explicitly global
+attach.DS = DS;
 
 //reliable self reference
 DS.value('$module', DS);
-
-//explicitly global
-this.DS = DS;
 
 // export it for node and browserify
 if (typeof exports !== 'undefined') {
