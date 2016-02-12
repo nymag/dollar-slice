@@ -1,6 +1,6 @@
 {
   "name": "dollar-slice",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "private": false,
   "description": "Cheap and easy. Client-side micro-framework with heavy inspiration from Angular and Backbone.",
   "main": "index.js",
