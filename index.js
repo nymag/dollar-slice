@@ -171,6 +171,11 @@ var Module = (function () {
   };
   constructor.prototype = {
 
+    providers: {
+      controller: DSController,
+      service: DSService
+    },
+
     /**
      * Create a new thing based solely on definition
      *
