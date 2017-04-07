@@ -20,7 +20,7 @@ npm install --save dollar-slice
 
 You probably have some sort of build process, so just make sure it knows about `/index.js`.
 
-##Table of Contents
+## Table of Contents
 * [Basics](#basics)
 * [Event Binding](#event-binding)
 * [Shared Variables and Functions](#shared-variables-and-functions)
@@ -29,7 +29,7 @@ You probably have some sort of build process, so just make sure it knows about `
 * [Full Example](#full-example)
 * [Browserify](#browserify)
 
-##Basics
+## Basics
 
 The syntax of a controller is a simplified version of AngularJS for familiarity. This is the basic outline of a controller:
 
@@ -81,7 +81,7 @@ DS.controller('name', function () {
 });
 ```
 
-##Event Binding
+## Event Binding
 
 Controllers have a highly performant shorthand for binding events. Its syntax is the same as BackboneJS for familiarity. It uses native DOM event binding for speed and binds each event's function to the controller so that the meaning of `this` is consistent. All css selectors are valid, and events with no selector apply to the controller's root element.
 
@@ -109,7 +109,7 @@ DS.controller('list', function () {
 });
 ```
 
-##Shared Variables and Functions
+## Shared Variables and Functions
 
 Controllers can have variables and functions that are shared between each instance, saving memory and keeping code DRY. These shared variables and functions do not have access to `this`.
 
@@ -146,7 +146,7 @@ DS.controller('list', function () {
 });
 ```
 
-##Services
+## Services
 
 The syntax of a service is a simplied version of AngularJS:
 
@@ -202,7 +202,7 @@ DS.get('myController', document.body);
 //  controller created!
 ```
 
-##Values
+## Values
 
 Values are useful for storing config and providing safe references that can be mocked during testing.
 
@@ -224,7 +224,7 @@ DS.controller('list', ['$', '_', 'config', function ($, _, config) {
 }]);
 ```
 
-##Full Example
+## Full Example
 
 Here's what a fully-featured controller looks like. Note the shared variables and functions, event handlers, and dependency injection.
 
@@ -260,11 +260,11 @@ DS.controller('item-controller', ['myService', function (myService) {
 }]);
 ```
 
-##Browserify
+## Browserify
 
 When using Browserify, you can pare down Dollar Slice even more. Services and Controllers become simple modules, and dependency injection (and `DS.value()`) is completely unnecessary. Here's what that looks like:
 
-###my-service.js
+### my-service.js
 
 ```js
 // require() creates singletons, so services can still share state between controllers
@@ -276,7 +276,7 @@ exports.getItem = function (index) { // use `module.exports` instead of `this`
 };
 ```
 
-###item-controller.js
+### item-controller.js
 
 ```js
 module.exports = function () {
@@ -291,7 +291,7 @@ module.exports = function () {
 };
 ```
 
-###Instantiation
+### Instantiation
 
 NOTE: You should pass `__dirname` (or an absolute path) in, otherwise Dollar Slice will use a relative path to `require()` your controller. A relative path that begins in Dollar Slice's own directory. `require()` is awesome.
 
